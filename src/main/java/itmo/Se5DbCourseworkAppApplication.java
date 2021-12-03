@@ -1,13 +1,13 @@
-package itmo.se5dbcurseworkapp;
+package itmo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Se5DbCurseworkAppApplication {
+public class Se5DbCourseworkAppApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(Se5DbCurseworkAppApplication.class, args);
+        SpringApplication.run(Se5DbCourseworkAppApplication.class, args);
     }
 
 }
