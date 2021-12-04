@@ -1,8 +1,10 @@
 package itmo.entity;
 
-import javax.persistence.*;
-import java.util.Objects;
+import lombok.Data;
 
+import javax.persistence.*;
+
+@Data
 @Entity
 @Table(name = "block_list")
 @IdClass(BlockListPK.class)

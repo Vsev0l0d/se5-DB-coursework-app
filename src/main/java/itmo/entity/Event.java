@@ -1,9 +1,12 @@
 package itmo.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
 
+@Data
 @Entity
 public class Event {
     @Id
