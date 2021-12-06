@@ -10,12 +10,12 @@ import javax.persistence.*;
 @IdClass(BlockListPK.class)
 public class BlockList {
     @Id
-    @Column
-    private int blocking;
+    @Column(name = "blocking")
+    private int blockingId;
 
     @Id
-    @Column
-    private int blocked;
+    @Column(name = "blocked")
+    private int blockedId;
 
     @Basic
     @Column

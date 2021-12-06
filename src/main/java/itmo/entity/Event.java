@@ -39,21 +39,14 @@ public class Event {
 
     @ManyToOne
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
-    private Personage personage;
-
-    @OneToMany(mappedBy = "event")
-    private Collection<Invitation> invitations;
-
-    @OneToMany(mappedBy = "event")
-    private Collection<Prise> prises;
+    private Personage owner;
 
     @OneToMany
     @JoinColumn(name = "event_id")
     private Collection<ThingControl> thingControls;
 
     @ManyToMany
-    @JoinTable(
-            name = "event_personage_type",
+    @JoinTable(name = "event_personage_type",
             joinColumns = @JoinColumn(name = "event_id"),
             inverseJoinColumns = @JoinColumn(name = "personage_type_id"))
     private Collection<PersonageType> personageTypes;

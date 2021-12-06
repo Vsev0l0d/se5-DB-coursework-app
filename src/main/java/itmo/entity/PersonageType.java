@@ -20,10 +20,4 @@ public class PersonageType {
     @Basic
     @Column
     private String description;
-
-    @OneToMany(mappedBy = "personageType")
-    private Collection<Personage> personages;
-
-    @ManyToMany(mappedBy = "personageTypes")
-    private Collection<Event> events;
 }

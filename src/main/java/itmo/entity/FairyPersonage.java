@@ -15,8 +15,4 @@ public class FairyPersonage {
     @Basic
     @Column
     private String skill;
-
-    @OneToOne
-    @JoinColumn(name = "id", referencedColumnName = "id", nullable = false)
-    private Personage personage;
 }

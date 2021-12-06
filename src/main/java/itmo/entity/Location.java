@@ -27,7 +27,4 @@ public class Location {
     @Basic
     @Column
     private int y;
-
-    @OneToMany(mappedBy = "location")
-    private Collection<Event> events;
 }

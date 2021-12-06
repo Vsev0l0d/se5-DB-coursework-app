@@ -15,11 +15,11 @@ public class Invitation {
     @Column
     private Boolean confirmation;
 
+    @Basic
+    @Column(name = "personage_id")
+    private int personageId;
+
     @ManyToOne
     @JoinColumn(name = "event_id", referencedColumnName = "id", nullable = false)
     private Event event;
-
-    @ManyToOne
-    @JoinColumn(name = "personage_id", referencedColumnName = "id", nullable = false)
-    private Personage personage;
 }

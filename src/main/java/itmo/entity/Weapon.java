@@ -23,7 +23,6 @@ public class Weapon {
     @Column
     private String type;
 
-    @ManyToOne
-    @JoinColumn(name = "owner_id", referencedColumnName = "id")
-    private Personage personage;
+    @Column(name = "owner_id")
+    private int ownerId;
 }

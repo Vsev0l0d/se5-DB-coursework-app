@@ -15,11 +15,10 @@ public class Prise {
     @Column
     private String type;
 
-    @ManyToOne
-    @JoinColumn(name = "owner_id", referencedColumnName = "id")
-    private Personage personage;
+    @Column(name = "owner_id")
+    private int ownerId;
 
-    @ManyToOne
-    @JoinColumn(name = "event_id", referencedColumnName = "id", nullable = false)
-    private Event event;
+    @Basic
+    @Column(name = "event_id")
+    private int eventId;
 }
