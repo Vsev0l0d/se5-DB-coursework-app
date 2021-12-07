@@ -1,9 +1,7 @@
 package itmo.repository;
 
 import itmo.entity.Personage;
-import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.repository.CrudRepository;
 
-@RepositoryRestResource
-public interface PersonageRepository extends PagingAndSortingRepository<Personage, Integer> {
+public interface PersonageRepository extends CrudRepository<Personage, Integer> {
 }

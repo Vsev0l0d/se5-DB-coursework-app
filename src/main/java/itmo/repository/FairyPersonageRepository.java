@@ -1,9 +1,7 @@
 package itmo.repository;
 
 import itmo.entity.FairyPersonage;
-import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.repository.CrudRepository;
 
-@RepositoryRestResource
-public interface FairyPersonageRepository extends PagingAndSortingRepository<FairyPersonage, Integer> {
+public interface FairyPersonageRepository extends CrudRepository<FairyPersonage, Integer> {
 }
