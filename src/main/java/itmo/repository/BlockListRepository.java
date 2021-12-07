@@ -8,7 +8,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.Collection;
 
-@RepositoryRestResource(path = "block_list")
+@RepositoryRestResource(collectionResourceRel = "blockList", path = "blockList")
 public interface BlockListRepository extends CrudRepository<BlockList, BlockListPK> {
     Collection<BlockList> findByBlockingId(@Param("blockingId") int blockingId);
 }

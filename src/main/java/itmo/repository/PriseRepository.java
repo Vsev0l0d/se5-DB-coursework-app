@@ -7,7 +7,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.Collection;
 
-@RepositoryRestResource(path = "prizes")
+@RepositoryRestResource(collectionResourceRel = "prizes",path = "prizes")
 public interface PriseRepository extends CrudRepository<Prise, Integer> {
     Collection<Prise> findByOwnerId(@Param("ownerId") int ownerId);
 
