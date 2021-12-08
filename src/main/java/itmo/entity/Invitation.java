@@ -9,6 +9,7 @@ import javax.persistence.*;
 public class Invitation {
     @Id
     @Column
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
 
     @Basic

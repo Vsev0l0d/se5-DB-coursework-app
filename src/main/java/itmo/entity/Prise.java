@@ -9,6 +9,7 @@ import javax.persistence.*;
 public class Prise {
     @Id
     @Column
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
 
     @Basic

@@ -9,6 +9,7 @@ import javax.persistence.*;
 public class Clothing {
     @Id
     @Column
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
 
     @Basic

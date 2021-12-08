@@ -10,6 +10,7 @@ import java.util.Collection;
 public class Personage {
     @Id
     @Column
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
 
     @Basic

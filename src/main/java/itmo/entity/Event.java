@@ -11,6 +11,7 @@ import java.util.Collection;
 public class Event {
     @Id
     @Column
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
 
     @Basic
