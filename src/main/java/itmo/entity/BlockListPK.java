@@ -9,10 +9,10 @@ import java.io.Serializable;
 @Data
 public class BlockListPK implements Serializable {
     @Id
-    @Column
+    @Column(name = "blocking")
     private int blockingId;
 
     @Id
-    @Column
+    @Column(name = "blocked")
     private int blockedId;
 }
