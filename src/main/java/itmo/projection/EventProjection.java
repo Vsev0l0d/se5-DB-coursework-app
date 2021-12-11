@@ -11,7 +11,7 @@ public interface EventProjection {
     String getName();
     Timestamp getDateStart();
     Timestamp getDateEnd();
-    String geDescription();
+    String getDescription();
     boolean getVisibility();
     Location getLocation();
     Personage getOwner();
