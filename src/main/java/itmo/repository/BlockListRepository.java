@@ -10,5 +10,5 @@ import java.util.Collection;
 
 @RepositoryRestResource(collectionResourceRel = "blockList", path = "blockList")
 public interface BlockListRepository extends CrudRepository<BlockList, BlockListPK> {
-    Collection<BlockList> findByBlockingId(@Param("blockingId") int blockingId);
+    Collection<BlockList> findByIdBlockingId(@Param("blockingId") int blockingId);
 }

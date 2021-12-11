@@ -8,5 +8,5 @@ import org.springframework.data.repository.query.Param;
 import java.util.Collection;
 
 public interface ThingControlRepository extends CrudRepository<ThingControl, ThingControlPK> {
-    Collection<ThingControl> findByEventId(@Param("eventId") int eventId);
+    Collection<ThingControl> findByIdEventId(@Param("eventId") int eventId);
 }
