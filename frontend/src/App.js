@@ -10,13 +10,15 @@ import history from "@utils/history"
 import {StartPage} from "./StartPage/index"
 import {MainPage} from "./MainPage/index"
 import {ProfilePage} from "./ProfilePage/index"
-import {PersonageEventPage} from "./InvitationsPage/index"
+import {EventPage} from "./EventPage/index"
 import {invitationModel} from "@entities/invitation"
 import {personageModel} from "@entities/profile"
+import {eventModel} from "@entities/event"
 
 const initialState = {
     invitations: invitationModel.initialState,
-    profile: personageModel.initialState
+    profile: personageModel.initialState,
+    events: eventModel.initialState
 }
 const store = configureStore(initialState)
 
@@ -29,7 +31,7 @@ export const App = () => {
                         <Route exact path={ROOT} element={<StartPage/>}/>
                         <Route path={MAIN} element={<MainPage/>}/>
                         <Route path={PROFILE} element={<ProfilePage/>}/>
-                        <Route path={EVENT} element={<PersonageEventPage/>}/>
+                        <Route path={EVENT} element={<EventPage/>}/>
                         <Route path="*" element={<StartPage/>}/>
                     </Routes>
                 </Router>

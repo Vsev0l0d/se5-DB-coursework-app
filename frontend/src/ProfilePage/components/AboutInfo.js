@@ -7,7 +7,9 @@ export const AboutInfo = () => {
     const profile = useSelector(personageModel.selectors.profile)
 
     if (profile.length === 0) {
-        return <Preloader/>
+        return <div className="center">
+            <Preloader/>
+        </div>
     }
 
     return (
