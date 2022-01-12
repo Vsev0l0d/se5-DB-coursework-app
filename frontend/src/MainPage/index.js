@@ -1,8 +1,8 @@
 import React, {useEffect} from "react"
 import {useDispatch} from "react-redux"
 import {personageModel} from "@entities/profile"
-import {Collections} from "./components/Collections"
-import {Navbar} from "../components/Navbar"
+import {Collection} from "./components/Collection"
+import {Navbar} from "@components/Navbar"
 
 export const MainPage = () => {
     const dispatch = useDispatch()
@@ -11,10 +11,8 @@ export const MainPage = () => {
         dispatch(personageModel.thunks.getPersonage())
     }, [])
 
-    return (
-        <>
-            <Navbar/>
-            <Collections/>
-        </>
-    )
+    return (<>
+        <Navbar/>
+        <Collection/>
+    </>)
 }

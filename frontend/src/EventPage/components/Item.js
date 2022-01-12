@@ -1,7 +1,7 @@
 import React from "react"
 import dateFormat from "dateformat"
 
-export const EventItem = ({props}) => {
+export const Item = ({props}) => {
     return <>
         <div className="grey lighten-4 collapsible-header row" style={{marginBottom: "0"}}>
             <p className="col offset-s1 s4">{dateFormat(props.dateStart, "dd.mm.yyyy HH:MM")}</p>

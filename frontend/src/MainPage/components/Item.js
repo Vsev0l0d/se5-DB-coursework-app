@@ -1,5 +1,6 @@
 import React from "react"
 import dateFormat from "dateformat"
+import axios from "axios"
 
 //ToDo: добавить действия кнопок соглашения, блока
 export const Item = ({props}) => {
@@ -19,7 +20,7 @@ export const Item = ({props}) => {
             {eventControl(props["_embedded"].event)}
 
             <span className="col s6 red-text">Не получать приглашений от этого пользователя</span>
-            {renderChangingConfirmationCommand(props.confirmation)}
+            {renderChangingConfirmationCommand(props)}
         </div>
     </>
 }
@@ -37,13 +38,9 @@ const eventControl = (event) => {
     if (thingControls.length !== 0 || personageTypes.length !== 0) {
         return <>
             <span className="col s12 text-accent-1">Для посещения необходимо:</span>
-            {thingControls.map((thing, index) =>
-                <p className="col offset-s1 s11" key={index}>{thing.id.type}</p>
-            )}
+            {thingControls.map((thing, index) => <p className="col offset-s1 s11" key={index}>{thing.id.type}</p>)}
 
-            {personageTypes.map((type, index) =>
-                <p className="col offset-s1 s11" key={index}>{type.id.type}</p>
-            )}
+            {personageTypes.map((type, index) => <p className="col offset-s1 s11" key={index}>{type.id.type}</p>)}
         </>
     }
 }
@@ -64,21 +61,53 @@ const renderConfirmationColumn = (value) => {
     return <></>
 }
 
-const renderChangingConfirmationCommand = (value) => {
-    if (value === true) {
-        return <span className="col offset-s3 s3 red-text right-align">Отказаться</span>
+const handleConfirmClick = (event) => {
+    event.preventDefault()
+    // const dispatch = useDispatch()
+    const link = this.props["_links"].invitation.href
+    console.log(JSON.stringify(`{"confirmation": ${!this.props.confirmation}}`))
+    axios.patch(link, JSON.stringify(`"confirmation": ${status}`))
+        .then(r => {
+            console.log(r, "success")
+            // dispatch(invitationModel.thunks.getInvitations())
+        })
+        .catch(e => console.log(e, "fail"))
+}
+
+const renderChangingConfirmationCommand = (props) => {
+    if (props.confirmation === true) {
+        return <a className="col offset-s3 s3 waves-effect waves-teal btn-flat right-align"
+                  onClick={handleConfirmClick}>
+            <span className="red-text center">
+            Отказаться
+            </span>
+        </a>
     }
 
-    if (value === false) {
-        return <span className="col offset-s3 s3 green-text right-align">Согласиться</span>
+    if (props.confirmation === false) {
+        return <a className="col offset-s3 s3 waves-effect waves-teal btn-flat right-align"
+                  onClick={handleConfirmClick}>
+            <span className="green-text">
+            Согласиться
+            </span>
+        </a>
     }
 
-    if (value === null) {
+    if (props.confirmation === null) {
         return (<>
-                <span className="col s3 green-text right-align">Согласиться</span>
-                <span className="col s3 red-text right-align">Отказаться</span>
-            </>
-        )
+            <a className="col offset-s3 s3 waves-effect waves-teal btn-flat right-align"
+               onClick={handleConfirmClick}>
+            <span className="green-text">
+            Согласиться
+            </span>
+            </a>
+            <a className="col offset-s3 s3 waves-effect waves-teal btn-flat right-align"
+               onClick={handleConfirmClick}>
+            <span className="red-text center">
+            Отказаться
+            </span>
+            </a>
+        </>)
     }
 
     return <></>

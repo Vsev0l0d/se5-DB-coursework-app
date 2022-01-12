@@ -5,7 +5,7 @@ import {Preloader} from "@components/Preloader"
 import {Item} from "./Item"
 
 //ToDo: Сортировка
-export const Collections = () => {
+export const Collection = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -31,12 +31,12 @@ export const Collections = () => {
         <div className="row">
             <div className="col s12">
                 <ul className="tabs">
-                    <li className="tab col s4"><a href="#test1">Будущие</a></li>
-                    <li className="tab col s4"><a className="active" href="#test2">Неотвеченные</a></li>
-                    <li className="tab col s4"><a href="#test3" style={{color: "grey"}}>Спам</a></li>
+                    <li className="tab col s4"><a href="#future">Будущие</a></li>
+                    <li className="tab col s4"><a className="active" href="#new">Неотвеченные</a></li>
+                    <li className="tab col s4"><a href="#spam" style={{color: "grey"}}>Спам</a></li>
                 </ul>
             </div>
-            <div id="test1" className="col s12">
+            <div id="future" className="col s12">
                 <ul className="collapsible">
                     {
                         invitations.filter(invitation => invitation.confirmation === true).map((invitation, index) =>
@@ -46,7 +46,7 @@ export const Collections = () => {
                     }
                 </ul>
             </div>
-            <div id="test2" className="col s12">
+            <div id="new" className="col s12">
                 <ul className="collapsible">
                     {
                         invitations.filter(invitation => invitation.confirmation === false).map((invitation, index) =>
@@ -56,7 +56,7 @@ export const Collections = () => {
                     }
                 </ul>
             </div>
-            <div id="test3" className="col s12">
+            <div id="spam" className="col s12">
                 <ul className="collapsible">
                     {
                         invitations.filter(invitation => invitation.confirmation === null).map((invitation, index) =>

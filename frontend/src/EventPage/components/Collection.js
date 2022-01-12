@@ -1,10 +1,10 @@
 import React, {useEffect} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {eventModel} from "@entities/event"
-import {EventItem} from "./EventItem"
+import {Item} from "./Item"
 import {Preloader} from "@components/Preloader";
 
-export const EventCollection = () => {
+export const Collection = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -29,7 +29,7 @@ export const EventCollection = () => {
         {
             events.map((event, index) =>
                 <li key={index}>
-                    <EventItem props={event}/>
+                    <Item props={event}/>
                 </li>)
         }
     </ul>
