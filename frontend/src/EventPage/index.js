@@ -1,10 +1,12 @@
 import React from "react"
 import {Navbar} from "@components/Navbar"
-import {EventCollection} from "./components/EventCollection"
+import {Collection} from "./components/Collection"
+import {FloatingButton} from "./components/FloatingButton"
 
 export const EventPage = () => {
     return <>
         <Navbar/>
-        <EventCollection/>
+        <Collection/>
+        <FloatingButton/>
     </>
 }

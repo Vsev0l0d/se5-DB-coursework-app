@@ -27,7 +27,6 @@ export const SignInForm = () => {
                 navigate(MAIN)
             })
             .catch(err => {
-                console.log("Введите id")
                 snackBar.enqueueSnackbar('Введите свой id', {
                     variant: 'error',
                 })

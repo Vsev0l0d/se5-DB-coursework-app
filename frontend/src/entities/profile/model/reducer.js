@@ -1,4 +1,8 @@
 import {
+    ADD_CLOTHING_SUCCESS,
+    ADD_WEAPON_SUCCESS,
+    CHANGE_CLOTHING_SUCCESS,
+    CHANGE_WEAPON_SUCCESS,
     GET_CLOTHING_FAILURE,
     GET_CLOTHING_STARTED,
     GET_CLOTHING_SUCCESS,
@@ -50,6 +54,13 @@ export const reducer = (state = initialState, action) => {
                 error: null,
                 weapons: [...state.weapons, ...action.payload.weapons]
             }
+        case ADD_WEAPON_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                error: null,
+                weapons: [...state.weapons, action.payload.weapon]
+            }
         case GET_WEAPONS_FAILURE:
             return {
                 ...state,
@@ -73,6 +84,27 @@ export const reducer = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 error: action.payload.error
+            }
+        case ADD_CLOTHING_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                error: null,
+                clothing: [...state.clothing, action.payload.clothing]
+            }
+        case CHANGE_CLOTHING_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                error: null,
+                clothing: state.clothing.filter(clothing => clothing["_links"].self.href !== action.payload.link)
+            }
+        case CHANGE_WEAPON_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                error: null,
+                weapons: state.weapons.filter(weapon => weapon["_links"].self.href !== action.payload.link)
             }
         default:
             return state

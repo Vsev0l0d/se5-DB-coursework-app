@@ -1,11 +1,15 @@
 import React, {useEffect} from "react"
 import {useDispatch} from "react-redux"
-import {AboutInfo} from "./components/AboutInfo"
 import {invitationModel} from "@entities/invitation"
 import {personageModel} from "@entities/profile"
-import {WeaponCollection} from "./components/WeaponCollection"
-import {ClothingCollection} from "./components/ClothingCollection"
+import {blockModel} from "@entities/block"
+import {awardModel} from "@entities/award"
 import {Navbar} from "@components/Navbar"
+import {AboutInfo} from "./components/AboutInfo"
+import {WeaponCollection} from "./components/weapon/WeaponCollection"
+import {ClothingCollection} from "./components/clothing/ClothingCollection"
+import {BlackList} from "./components/BlackList"
+import {AwardCollection} from "./components/AwardCollection";
 
 export const ProfilePage = () => {
     const dispatch = useDispatch()
@@ -13,6 +17,8 @@ export const ProfilePage = () => {
     useEffect(() => {
         dispatch(invitationModel.thunks.getInvitations())
         dispatch(personageModel.thunks.getPersonage())
+        dispatch(blockModel.thunks.getBlocking())
+        dispatch(awardModel.thunks.getAwards())
     }, [])
 
 
@@ -22,6 +28,8 @@ export const ProfilePage = () => {
             <AboutInfo/>
             <WeaponCollection/>
             <ClothingCollection/>
+            <AwardCollection/>
+            <BlackList/>
         </div>
     </>
 }

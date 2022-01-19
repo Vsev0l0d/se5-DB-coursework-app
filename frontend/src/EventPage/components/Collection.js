@@ -1,23 +1,25 @@
 import React, {useEffect} from "react"
 import {useDispatch, useSelector} from "react-redux"
+import {Preloader} from "@components/Preloader"
 import {eventModel} from "@entities/event"
-import {EventItem} from "./EventItem"
-import {Preloader} from "@components/Preloader";
+import {locationModel} from "@entities/location"
+import {Item} from "./Item"
 
-export const EventCollection = () => {
+export const Collection = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(eventModel.thunks.getEvents())
+        dispatch(locationModel.thunks.getLocations())
     }, [])
 
     const events = useSelector(eventModel.selectors.events)
 
     useEffect(() => {
         if (events.length !== 0) {
-            M.Collapsible.init(document.querySelectorAll('.collapsible'));
+            M.AutoInit()
         }
-    }, [events]);
+    }, [events])
 
     if (events.length === 0) {
         return <div className="center">
@@ -29,7 +31,7 @@ export const EventCollection = () => {
         {
             events.map((event, index) =>
                 <li key={index}>
-                    <EventItem props={event}/>
+                    <Item props={event}/>
                 </li>)
         }
     </ul>

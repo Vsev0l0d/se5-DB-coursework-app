@@ -14,11 +14,17 @@ import {EventPage} from "./EventPage/index"
 import {invitationModel} from "@entities/invitation"
 import {personageModel} from "@entities/profile"
 import {eventModel} from "@entities/event"
+import {locationModel} from "@entities/location"
+import {blockModel} from "@entities/block"
+import {awardModel} from "@entities/award"
 
 const initialState = {
     invitations: invitationModel.initialState,
     profile: personageModel.initialState,
-    events: eventModel.initialState
+    events: eventModel.initialState,
+    locations: locationModel.initialState,
+    blocking: blockModel.initialState,
+    awards: awardModel.initialState
 }
 const store = configureStore(initialState)
 

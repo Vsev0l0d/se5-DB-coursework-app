@@ -1,4 +1,10 @@
-import {GET_INVITATIONS_FAILURE, GET_INVITATIONS_STARTED, GET_INVITATIONS_SUCCESS} from "./actionTypes"
+import {
+    CHANGE_INVITATION_SUCCESS,
+    DELETE_INVITATION_SUCCESS,
+    GET_INVITATIONS_FAILURE,
+    GET_INVITATIONS_STARTED,
+    GET_INVITATIONS_SUCCESS
+} from "./actionTypes"
 
 export const initialState = {
     loading: false,
@@ -25,6 +31,20 @@ export const reducer = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 error: action.payload.error
+            }
+        case DELETE_INVITATION_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                error: null,
+                events: state.invitations.filter(invitation => invitation["_links"].self.href !== action.payload.link)
+            }
+        case CHANGE_INVITATION_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                error: null,
+                events: [...state.invitations.filter(invitation => invitation["_links"].self.href !== action.payload.link), action.payload.event]
             }
         default:
             return state
