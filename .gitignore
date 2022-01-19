@@ -9,4 +9,5 @@ mvnw.cmd
 *.iml
 
 src/main/resources/application.properties
+src/main/resources/static
 /frontend/node_modules/
