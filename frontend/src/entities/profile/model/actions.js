@@ -1,4 +1,7 @@
 import {
+    ADD_CLOTHING_SUCCESS,
+    ADD_WEAPON_SUCCESS,
+    CHANGE_CLOTHING_SUCCESS, CHANGE_WEAPON_SUCCESS,
     GET_CLOTHING_FAILURE,
     GET_CLOTHING_STARTED,
     GET_CLOTHING_SUCCESS,
@@ -58,6 +61,24 @@ export const getWeaponsFailure = (error) => {
     }
 }
 
+export const addWeaponSuccess = (weapon) => {
+    return {
+        type: ADD_WEAPON_SUCCESS,
+        payload: {
+            weapon
+        }
+    }
+}
+
+export const changeWeaponSuccess = (link) => {
+    return {
+        type: CHANGE_WEAPON_SUCCESS,
+        payload: {
+            link
+        }
+    }
+}
+
 export const getClothingSuccess = (clothing) => {
     return {
         type: GET_CLOTHING_SUCCESS,
@@ -67,17 +88,35 @@ export const getClothingSuccess = (clothing) => {
     }
 }
 
-export const getClosingStarted = () => {
+export const getClothingStarted = () => {
     return {
         type: GET_CLOTHING_STARTED
     }
 }
 
-export const getClosingFailure = (error) => {
+export const getClothingFailure = (error) => {
     return {
         type: GET_CLOTHING_FAILURE,
         payload: {
             error
+        }
+    }
+}
+
+export const addClothingSuccess = (clothing) => {
+    return {
+        type: ADD_CLOTHING_SUCCESS,
+        payload: {
+            clothing
+        }
+    }
+}
+
+export const changeClothingSuccess = (link) => {
+    return {
+        type: CHANGE_CLOTHING_SUCCESS,
+        payload: {
+            link
         }
     }
 }

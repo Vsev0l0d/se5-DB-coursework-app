@@ -1,7 +1,6 @@
 import React, {useEffect} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {invitationModel} from "@entities/invitation"
-import {Preloader} from "@components/Preloader"
 import {Item} from "./Item"
 
 //ToDo: Сортировка
@@ -15,20 +14,20 @@ export const Collection = () => {
     const invitations = useSelector(invitationModel.selectors.invitations)
 
     useEffect(() => {
-        M.Tabs.init(document.querySelectorAll('.tabs'));
+        M.Tabs.init(document.querySelectorAll('.tabs'))
         if (invitations.length !== 0) {
-            M.Collapsible.init(document.querySelectorAll('.collapsible'));
+            M.Collapsible.init(document.querySelectorAll('.collapsible'))
         }
-    }, [invitations]);
+    }, [invitations])
 
-    if (invitations.length === 0) {
-        return <div className="center">
-            <Preloader/>
-        </div>
-    }
+    // if (invitations.length === 0) {
+    //     return <div className="center">
+    //         <Preloader/>
+    //     </div>
+    // }
 
-    return (
-        <div className="row">
+    //ToDo: как отнести приглашения в спам, если нет никаких способов сравнения, в черном списке есть только id, а в приглашении только ссылка на владельца не совпадающая с той
+    return (<div className="row">
             <div className="col s12">
                 <ul className="tabs">
                     <li className="tab col s4"><a href="#future">Будущие</a></li>
@@ -38,34 +37,28 @@ export const Collection = () => {
             </div>
             <div id="future" className="col s12">
                 <ul className="collapsible">
-                    {
-                        invitations.filter(invitation => invitation.confirmation === true).map((invitation, index) =>
-                            <li key={index}>
-                                <Item props={invitation}/>
-                            </li>)
-                    }
+                    {invitations.length ? invitations.filter(invitation => invitation.confirmation !== null && invitation["_embedded"].event.dateStart >= Date.now()).map((invitation, index) =>
+                        <li key={index}>
+                            <Item props={invitation}/>
+                        </li>) : <></>}
                 </ul>
             </div>
             <div id="new" className="col s12">
                 <ul className="collapsible">
-                    {
-                        invitations.filter(invitation => invitation.confirmation === false).map((invitation, index) =>
-                            <li key={index}>
-                                <Item props={invitation}/>
-                            </li>)
-                    }
+                    {invitations.length ? invitations.filter(invitation => invitation.confirmation === null && invitation["_embedded"].event.dateStart >= Date.now()).map((invitation, index) =>
+                        <li key={index}>
+                            <Item props={invitation}/>
+                        </li>) : <></>}
                 </ul>
             </div>
+
             <div id="spam" className="col s12">
                 <ul className="collapsible">
-                    {
-                        invitations.filter(invitation => invitation.confirmation === null).map((invitation, index) =>
-                            <li key={index}>
-                                <Item props={invitation}/>
-                            </li>)
-                    }
+                    {invitations.length ? invitations.filter(invitation => invitation.confirmation === null).map((invitation, index) =>
+                        <li key={index}>
+                            <Item props={invitation}/>
+                        </li>) : <></>}
                 </ul>
             </div>
-        </div>
-    )
+        </div>)
 }

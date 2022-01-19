@@ -20,13 +20,12 @@ export const AboutInfo = () => {
                         <i className="large material-icons">account_circle</i>
                     </div>
                     <div className="col s10">
-                        <span className="black-text title">
+                        <h4 className="black-text title">
                             {profile[0].name}
-                        </span>
-                        <br/>
-                        <span className="grey-text small">
+                        </h4>
+                        <h6 className="grey-text small">
                             {profile[0]["personageType"].name}
-                        </span>
+                        </h6>
                     </div>
                 </div>
                 <div className="row valign-wrapper">

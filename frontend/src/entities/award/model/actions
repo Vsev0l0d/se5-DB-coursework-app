@@ -1,0 +1,49 @@
+import {
+    ADD_AWARD_SUCCESS,
+    DELETE_AWARD_SUCCESS,
+    GET_AWARDS_FAILURE,
+    GET_AWARDS_STARTED,
+    GET_AWARDS_SUCCESS
+} from "@entities/award/model/actionsTypes"
+
+export const getAwardsSuccess = (awards) => {
+    return {
+        type: GET_AWARDS_SUCCESS,
+        payload: {
+            awards
+        }
+    }
+}
+
+export const getAwardsStarted = () => {
+    return {
+        type: GET_AWARDS_STARTED
+    }
+}
+
+export const getAwardsFailure = (error) => {
+    return {
+        type: GET_AWARDS_FAILURE,
+        payload: {
+            error
+        }
+    }
+}
+
+export const addAwardsSuccess = (award) => {
+    return {
+        type: ADD_AWARD_SUCCESS,
+        payload: {
+            award
+        }
+    }
+}
+
+export const deleteAwardSuccess = (link) => {
+    return {
+        type: DELETE_AWARD_SUCCESS,
+        payload: {
+            link
+        }
+    }
+}
