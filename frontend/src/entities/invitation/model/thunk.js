@@ -1,11 +1,5 @@
 import axios from "axios"
-import {
-    changeInvitationSuccess,
-    deleteInvitationSuccess,
-    getInvitationsFailure,
-    getInvitationsStarted,
-    getInvitationsSuccess
-} from "./actions"
+import {changeInvitationSuccess, getInvitationsFailure, getInvitationsStarted, getInvitationsSuccess} from "./actions"
 
 export const getInvitations = () => {
     return dispatch => {
@@ -20,17 +14,6 @@ export const getInvitations = () => {
             .catch(err => {
                 dispatch(getInvitationsFailure(err.message))
             })
-    }
-}
-
-//ToDo: удаление наград
-export const deleteInvitation = (link) => {
-    return dispatch => {
-        dispatch(getInvitationsStarted())
-        axios.delete(link)
-            .then(res => dispatch(deleteInvitationSuccess(link))
-            )
-            .catch(err => dispatch(getInvitationsFailure(err)))
     }
 }
 

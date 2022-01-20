@@ -14,7 +14,7 @@
     "@emotion/react": "^11.7.0",
     "@emotion/styled": "^11.6.0",
     "axios": "^0.23.0",
-    "dateformat": "^5.0.1",
+    "dateformat": "^5.0.2",
     "materialize-css": "^1.0.0-rc.2",
     "notistack": "^2.0.3",
     "react": "^17.0.2",

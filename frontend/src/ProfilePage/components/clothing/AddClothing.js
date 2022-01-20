@@ -19,8 +19,8 @@ export const AddClothing = () => {
     }
 
     return <div className="row" style={{"marginBottom": "0px"}}>
-        <p className="col s6">Хотите добавить новую вещь?</p>
-        <div className="col s4">
+        <p className="col s5">Хотите добавить новую вещь?</p>
+        <div className="col s2 center-align">
             <a href="#addClothing" className="btn-small modal-trigger white">
                 <i className="material-icons green-text darken-2">add</i>
             </a>

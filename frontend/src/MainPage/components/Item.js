@@ -4,7 +4,6 @@ import {useDispatch} from "react-redux"
 import {invitationModel} from "@entities/invitation"
 import {blockModel} from "@entities/block"
 
-//ToDo: добавить действия кнопок блока
 export const Item = ({props}) => {
     useEffect(() => {
         M.AutoInit()
@@ -12,7 +11,7 @@ export const Item = ({props}) => {
 
     const dispatch = useDispatch()
 
-    const types = ["отказ от рассылок", "отказ от всех пришлашений"]
+    const types = ["отказ от рассылок", "отказ от всех приглашений"]
 
     const link = props["_links"].invitation.href
 
@@ -23,9 +22,7 @@ export const Item = ({props}) => {
 
     const handleBlockingClick = (event) => {
         event.preventDefault()
-        //ToDo: как получить owner_id
-        const owner_id = 1
-        dispatch(blockModel.thunks.addBlocking(owner_id, props["_embedded"].event.visibility ? types[0] : types[1]))
+        dispatch(blockModel.thunks.addBlocking(props["_embedded"].event.owner.id, props["_embedded"].event.visibility ? types[0] : types[1]))
     }
 
     const renderLocation = () => {

@@ -1,5 +1,6 @@
 import axios from "axios"
 import {
+    addEventSuccess,
     changeEventSuccess,
     deleteEventSuccess,
     getEventsFailure,
@@ -28,7 +29,7 @@ export const deleteEvent = (link) => {
     return dispatch => {
         dispatch(getEventsStarted())
         axios.delete(link)
-            .then(res => dispatch(deleteEventSuccess(link))
+            .then(dispatch(deleteEventSuccess(link))
             )
             .catch(err => dispatch(getEventsFailure(err)))
     }
@@ -43,7 +44,7 @@ export const changeEvent = (link, data) => {
     }
 }
 
-export const addEvent = (name, description, location, dateStart, dateEnd, thingControl, personageType, visibility) => {
+export const addEvent = (name, description, location, dateStart, dateEnd, thingControl, personageTypeId, visibility) => {
     const id = JSON.parse(localStorage.getItem("id"))
     return dispatch => {
         dispatch(getEventsStarted())
@@ -53,12 +54,29 @@ export const addEvent = (name, description, location, dateStart, dateEnd, thingC
             location: location,
             dateStart: dateStart,
             dateEnd: dateEnd,
-            thingControls: thingControl,
-            personageTypes: personageType,
             owner: `/api/personages/${id}`,
             visibility: visibility
         })
-            .then(res => dispatch(addEventSuccess(res.data)))
+            .then(async res => {
+                const eventId = res.data.id
+                await thingControl.map(thing => axios.post('/api/thingControls', {
+                    id: {
+                        "eventId": eventId,
+                        "type": thing
+                    }
+                })
+                    .catch(e => dispatch(getEventsFailure(e))))
+                await personageTypeId.map(typeId => axios.post('/api/eventPersonageTypes', {
+                    id: {
+                        "eventId": eventId,
+                        "personageTypeId": typeId
+                    }
+                }).catch(e => dispatch(getEventsFailure(e))))
+
+                await axios.get(`/api/events/${eventId}?projection=eventProjection`)
+                    .then(res => dispatch(addEventSuccess(res.data)))
+                    .catch(err => dispatch(getEventsFailure(err)))
+            })
             .catch(err => dispatch(getEventsFailure(err)))
     }
 }

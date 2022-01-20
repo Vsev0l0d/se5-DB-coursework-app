@@ -6,10 +6,15 @@ import {Preloader} from "@components/Preloader"
 export const AboutInfo = () => {
     const profile = useSelector(personageModel.selectors.profile)
 
-    if (profile.length === 0) {
+    const loading = useSelector(personageModel.selectors.loading)
+    if (loading) {
         return <div className="center">
             <Preloader/>
         </div>
+    }
+
+    if (profile.length === 0) {
+        return <></>
     }
 
     return (
@@ -21,10 +26,11 @@ export const AboutInfo = () => {
                     </div>
                     <div className="col s10">
                         <h4 className="black-text title">
+                            {/*{console.log(profile)}*/}
                             {profile[0].name}
                         </h4>
                         <h6 className="grey-text small">
-                            {profile[0]["personageType"].name}
+                            {profile[0].personageType.name}
                         </h6>
                     </div>
                 </div>

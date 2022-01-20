@@ -29,13 +29,11 @@ export const WeaponCollection = () => {
                     <li key={index} className="collection-item">
                         <div className="row" style={{"marginBottom": "0px"}}>
                             <p className="col s4 black-text">{weapon.name}</p>
-                            <p className="col s3 center-align helper-text grey-text">{weapon.type}</p>
-                            <p className="col s2 center-align helper-text grey-text">{weapon.damage}</p>
-                            <div className="col s3 left-align helper-text container">
-                                <div className="center-align">
-                                    <ExchangeWeapon weaponLink={weapon["_links"].weapon.href} id={index}/>
-                                    <DeleteWeapon weaponLink={weapon["_links"].weapon.href} id={index}/>
-                                </div>
+                            <p className="col s4 center-align helper-text grey-text">{weapon.type}</p>
+                            <p className="col s3 center-align helper-text grey-text">{weapon.damage}</p>
+                            <div className="col s1 helper-text container">
+                                <ExchangeWeapon weaponLink={weapon["_links"].weapon.href} id={index}/>
+                                <DeleteWeapon weaponLink={weapon["_links"].weapon.href} id={index}/>
                             </div>
                         </div>
                     </li>)}

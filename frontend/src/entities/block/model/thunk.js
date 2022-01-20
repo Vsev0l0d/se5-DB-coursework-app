@@ -27,7 +27,7 @@ export const deleteBlocking = (link) => {
     return dispatch => {
         dispatch(getBlockingStarted())
         axios.delete(link)
-            .then(res => dispatch(deleteBlockingSuccess(link))
+            .then(dispatch(deleteBlockingSuccess(link))
             )
             .catch(err => dispatch(getBlockingFailure(err)))
     }
@@ -37,16 +37,10 @@ export const addBlocking = (blockedId, type) => {
     return dispatch => {
         dispatch(getBlockingStarted())
         axios.post("/api/blockList", {
-            id: {"blockingId": JSON.parse(localStorage.getItem("id")), "blockedId": blockedId}, type: type
+            id: {"blockingId": Number.parseInt(JSON.parse(localStorage.getItem("id"))), "blockedId": blockedId},
+            type: type
         })
             .then(res => dispatch(addBlockingSuccess(res.data)))
             .catch(err => dispatch(getBlockingFailure(err.message)))
-    }
-}
-
-export const changeBlocking = (link) => {
-    return dispatch => {
-        dispatch(getBlockingStarted())
-
     }
 }

@@ -41,9 +41,9 @@ export const AwardCollection = () => {
                 {awards.map((award, index) =>
                     <li key={index} className="collection-item">
                         <div className="row" style={{"marginBottom": "0px"}}>
-                            <p className="col s6 black-text">{award.type}</p>
-                            <p className="col s5 center-align helper-text grey-text">{award.eventId}</p>
-                            <div className="col s1 left-align helper-text container">
+                            <p className="col s4 black-text">{award.type}</p>
+                            <p className="col s4 center-align helper-text grey-text">{award.eventId}</p>
+                            <div className="col offset-s3 s1 helper-text container">
                                 {renderDeleteButton(index, award["_links"].self.href)}
                             </div>
                         </div>

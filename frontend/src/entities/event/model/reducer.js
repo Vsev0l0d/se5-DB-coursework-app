@@ -38,7 +38,7 @@ export const reducer = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 error: null,
-                events: [...state.events, action.payload.events]
+                events: [...state.events, action.payload.event]
             }
         case DELETE_EVENT_SUCCESS:
             return {

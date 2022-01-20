@@ -1,38 +1,43 @@
 import React, {useEffect} from "react"
-import {useDispatch, useSelector} from "react-redux"
+import {useSelector} from "react-redux"
 import {Preloader} from "@components/Preloader"
 import {eventModel} from "@entities/event"
-import {locationModel} from "@entities/location"
 import {Item} from "./Item"
 
 export const Collection = () => {
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        dispatch(eventModel.thunks.getEvents())
-        dispatch(locationModel.thunks.getLocations())
-    }, [])
-
     const events = useSelector(eventModel.selectors.events)
+    const loading = useSelector(eventModel.selectors.loading)
 
     useEffect(() => {
-        if (events.length !== 0) {
-            M.AutoInit()
-        }
+        console.log("sddsasdas")
+        M.FloatingActionButton.init(document.querySelectorAll('.fixed-action-btn'))
+        M.Collapsible.init(document.querySelectorAll('.collapsible'))
+        M.Modal.init(document.querySelectorAll('.modal'))
+        M.Datepicker.init(document.querySelectorAll('.datepicker'), {
+            onSelect: (date) => console.log(date)
+        })
+        M.Timepicker.init(document.querySelectorAll('.timepicker'))
+        M.FormSelect.init(document.querySelectorAll('select'))
+        // M.AutoInit()
     }, [events])
 
-    if (events.length === 0) {
+    if (loading) {
         return <div className="center">
             <Preloader/>
         </div>
     }
 
+    if (events.length === 0) {
+        return <div className="center">
+            <p>Вы еще ничего не создали</p>
+        </div>
+    }
+
     return <ul className="collapsible">
-        {
-            events.map((event, index) =>
-                <li key={index}>
-                    <Item props={event}/>
-                </li>)
-        }
+        {events.map((event, index) =>
+            <li key={index}>
+                <Item event={event} index={index}/>
+            </li>
+        )}
     </ul>
 }

@@ -1,17 +1,21 @@
 import React, {useEffect} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {invitationModel} from "@entities/invitation"
+import {blockModel} from "@entities/block"
 import {Item} from "./Item"
 
-//ToDo: Сортировка
 export const Collection = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(invitationModel.thunks.getInvitations())
+        dispatch(blockModel.thunks.getBlocking())
     }, [])
 
     const invitations = useSelector(invitationModel.selectors.invitations)
+    const blocked = useSelector(blockModel.selectors.blocking)
+    const spam = useSelector(invitationModel.selectors.getSpam(blocked))
+    const clearInvitations = useSelector(invitationModel.selectors.getInvitations(blocked))
 
     useEffect(() => {
         M.Tabs.init(document.querySelectorAll('.tabs'))
@@ -20,45 +24,38 @@ export const Collection = () => {
         }
     }, [invitations])
 
-    // if (invitations.length === 0) {
-    //     return <div className="center">
-    //         <Preloader/>
-    //     </div>
-    // }
-
-    //ToDo: как отнести приглашения в спам, если нет никаких способов сравнения, в черном списке есть только id, а в приглашении только ссылка на владельца не совпадающая с той
     return (<div className="row">
-            <div className="col s12">
-                <ul className="tabs">
-                    <li className="tab col s4"><a href="#future">Будущие</a></li>
-                    <li className="tab col s4"><a className="active" href="#new">Неотвеченные</a></li>
-                    <li className="tab col s4"><a href="#spam" style={{color: "grey"}}>Спам</a></li>
-                </ul>
-            </div>
-            <div id="future" className="col s12">
-                <ul className="collapsible">
-                    {invitations.length ? invitations.filter(invitation => invitation.confirmation !== null && invitation["_embedded"].event.dateStart >= Date.now()).map((invitation, index) =>
-                        <li key={index}>
-                            <Item props={invitation}/>
-                        </li>) : <></>}
-                </ul>
-            </div>
-            <div id="new" className="col s12">
-                <ul className="collapsible">
-                    {invitations.length ? invitations.filter(invitation => invitation.confirmation === null && invitation["_embedded"].event.dateStart >= Date.now()).map((invitation, index) =>
-                        <li key={index}>
-                            <Item props={invitation}/>
-                        </li>) : <></>}
-                </ul>
-            </div>
+        <div className="col s12">
+            <ul className="tabs">
+                <li className="tab col s4"><a href="#future">Будущие</a></li>
+                <li className="tab col s4"><a className="active" href="#new">Неотвеченные</a></li>
+                <li className="tab col s4"><a href="#spam" style={{color: "grey"}}>Спам</a></li>
+            </ul>
+        </div>
+        <div id="future" className="col s12">
+            <ul className="collapsible">
+                {clearInvitations.length ? clearInvitations.filter(invitation => invitation.confirmation !== null).map((invitation, index) =>
+                    <li key={index}>
+                        <Item props={invitation}/>
+                    </li>) : <></>}
+            </ul>
+        </div>
+        <div id="new" className="col s12">
+            <ul className="collapsible">
+                {clearInvitations.length ? clearInvitations.filter(invitation => invitation.confirmation === null).map((invitation, index) =>
+                    <li key={index}>
+                        <Item props={invitation}/>
+                    </li>) : <></>}
+            </ul>
+        </div>
 
-            <div id="spam" className="col s12">
-                <ul className="collapsible">
-                    {invitations.length ? invitations.filter(invitation => invitation.confirmation === null).map((invitation, index) =>
-                        <li key={index}>
-                            <Item props={invitation}/>
-                        </li>) : <></>}
-                </ul>
-            </div>
-        </div>)
+        <div id="spam" className="col s12">
+            <ul className="collapsible">
+                {spam.length ? spam.map((invitation, index) =>
+                    <li key={index}>
+                        <Item props={invitation}/>
+                    </li>) : <></>}
+            </ul>
+        </div>
+    </div>)
 }

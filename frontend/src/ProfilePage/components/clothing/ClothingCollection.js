@@ -1,4 +1,4 @@
-import React, {useEffect} from "react"
+import React from "react"
 import {useSelector} from "react-redux"
 import {personageModel} from "@entities/profile"
 import {AddClothing} from "./AddClothing"
@@ -6,10 +6,6 @@ import {ExchangeClothing} from "./ExchangeClothing"
 import {DeleteClothing} from "./DeleteClothing"
 
 export const ClothingCollection = () => {
-    useEffect(() => {
-        M.AutoInit()
-    }, [])
-
     const clothing = useSelector(personageModel.selectors.clothing)
 
     if (clothing.length === 0) {
@@ -33,9 +29,9 @@ export const ClothingCollection = () => {
                     {clothing.map((clothes, index) =>
                         <li key={index} className="collection-item">
                             <div className="row" style={{"marginBottom": "0px"}}>
-                                <p className="col s5 black-text">{clothes.name}</p>
+                                <p className="col s4 black-text">{clothes.name}</p>
                                 <p className="col s4 center-align helper-text grey-text">{clothes.type}</p>
-                                <div className="col s3 center-align">
+                                <div className="col offset-s3 s1 helper-text container">
                                     <ExchangeClothing clothingLink={clothes["_links"].clothing.href} id={index}/>
                                     <DeleteClothing clothingLink={clothes["_links"].clothing.href} id={index}/>
                                 </div>

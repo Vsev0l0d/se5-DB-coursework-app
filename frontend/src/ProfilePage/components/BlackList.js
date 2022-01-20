@@ -34,23 +34,25 @@ export const BlackList = () => {
         </>
     }
 
-//ToDo: выводить не id а имя
-//ToDo: удаление из чс
     return <>
         <div>Черный список</div>
         <div>
             <ul className="collection">
-                <div className="row" style={{"marginBottom": "0px"}}>
-                    {blocked.length
-                        ? blocked.map((blocked, index) => <li key={index} className="collection-item">
-                            <p className="col s6 black-text">{blocked.id.blockedId}</p>
-                            <p className="col s5 black-text">{blocked.type}</p>
-                            <div className="col s1 left-align helper-text container">
+                {blocked.length
+                    ? blocked.map((blocked, index) => <li key={index} className="collection-item">
+                        <div className="row" style={{"marginBottom": "0px"}}>
+                            <p className="col s4 black-text">{blocked.id.blockedId}</p>
+                            <p className="col s4 center-align black-text">{blocked.type}</p>
+                            <div className="col offset-s3 s1 helper-text container">
                                 {renderDeleteButton(index, blocked["_links"].self.href)}
                             </div>
-                        </li>)
-                        : <p className="col s3 black-text">Никого</p>}
-                </div>
+                        </div>
+
+                    </li>)
+                    : <div className="row" style={{"marginBottom": "0px"}}>
+                        <p className="col s3 black-text">Никого</p>
+                    </div>
+                }
             </ul>
         </div>
     </>

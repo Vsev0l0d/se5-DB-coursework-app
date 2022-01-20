@@ -21,7 +21,7 @@ export const getPersonage = () => {
 
         dispatch(getProfileStarted())
         axios
-            .get(`api/personages/${id}`)
+            .get(`api/personages/${id}?projection=personageProjection`)
             .then(res => {
                 dispatch(getProfileSuccess(res.data))
             })
@@ -78,7 +78,7 @@ export const exchangeWeapon = (link, id) => {
         axios.patch(link, {
             "ownerId": id
         })
-            .then(res => dispatch(changeWeaponSuccess(link)))
+            .then(dispatch(changeWeaponSuccess(link)))
             .catch(err => dispatch(getWeaponsFailure(err)))
     }
 }
@@ -89,7 +89,7 @@ export const exchangeClothing = (link, id) => {
         axios.patch(link, {
             "ownerId": id
         })
-            .then(res => dispatch(changeClothingSuccess(link)))
+            .then(dispatch(changeClothingSuccess(link)))
             .catch(err => dispatch(getClothingFailure(err)))
     }
 }
@@ -98,7 +98,7 @@ export const deleteClothing = (link) => {
     return dispatch => {
         dispatch(getClothingStarted())
         axios.delete(link)
-            .then(res => dispatch(changeClothingSuccess(link)))
+            .then(dispatch(changeClothingSuccess(link)))
             .catch(err => dispatch(getClothingFailure(err)))
     }
 }
@@ -108,7 +108,7 @@ export const deleteWeapon = (link) => {
         dispatch(getWeaponsStarted())
 
         axios.delete(link)
-            .then(res => dispatch(changeWeaponSuccess(link))
+            .then(dispatch(changeWeaponSuccess(link))
             )
             .catch(err => dispatch(getWeaponsFailure(err)))
     }

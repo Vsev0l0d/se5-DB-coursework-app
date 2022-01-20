@@ -20,8 +20,8 @@ export const AddWeapon = () => {
     }
 
     return <div className="row" style={{"marginBottom": "0px"}}>
-        <p className="col s6">Хотите добавить новое оружие?</p>
-        <div className="col s4">
+        <p className="col s5">Хотите добавить новое оружие?</p>
+        <div className="col s2 center-align">
             <a href="#addWeapon" className="btn-small modal-trigger white">
                 <i className="material-icons green-text text-darken-2">add</i>
             </a>

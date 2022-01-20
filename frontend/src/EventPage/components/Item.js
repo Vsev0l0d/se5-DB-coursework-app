@@ -1,29 +1,29 @@
-import React, {useEffect} from "react"
+import React from "react"
 import dateFormat from "dateformat"
 import {useDispatch} from "react-redux"
 import {eventModel} from "@entities/event"
 
-export const Item = ({props}) => {
-    useEffect(() => {
-        M.AutoInit()
-    }, [])
+export const Item = (props) => {
+    if (!props.event) {
+        return <></>
+    }
 
     const dispatch = useDispatch()
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        dispatch(eventModel.thunks.deleteEvent(props["_links"].self.href))
+        dispatch(eventModel.thunks.deleteEvent(props.event["_links"].self.href))
     }
 
     return <>
         <div className="grey lighten-4 collapsible-header row" style={{marginBottom: "0"}}>
-            <p className="col offset-s1 s4">{dateFormat(props.dateStart, "dd.mm.yyyy HH:MM")}</p>
-            <p className="col s7">{props.name}</p>
+            <p className="col offset-s1 s4">{dateFormat(props.event.dateStart, "dd.mm.yyyy HH:MM")}</p>
+            <p className="col s7">{props.event.name}</p>
             <div className="col s1 left-align helper-text container">
-                <a href={`#deleteEvent${props.id}`} className="btn-small modal-trigger white"><i
+                <a href={`#deleteEvent${props.index}`} className="btn-small modal-trigger white"><i
                     className="material-icons black-text">delete</i></a>
 
-                <div id={`deleteEvent${props.id}`} className="modal">
+                <div id={`deleteEvent${props.index}`} className="modal">
                     <div className="modal-content">
                         <div className="row">
                             <span className="col s12">Удалить?</span>
@@ -39,8 +39,8 @@ export const Item = ({props}) => {
 
         <div className="collapsible-body row">
             <span className="col s12 text-accent-2">Место проведения</span>
-            <p className="col offset-s1 s11">{props.location.name} ({props.location.x};{props.location.y})</p>
-            {eventControl(props)}
+            <p className="col offset-s1 s11">{props.event.location.name} ({props.event.location.x};{props.event.location.y})</p>
+            {eventControl(props.event)}
         </div>
     </>
 }
@@ -57,7 +57,7 @@ const eventControl = (event) => {
             )}
 
             {personageTypes.map((type, index) =>
-                <p className="col offset-s1 s11" key={index}>{type.id.type}</p>
+                <p className="col offset-s1 s11" key={index}>{type.name}</p>
             )}
         </>
     }

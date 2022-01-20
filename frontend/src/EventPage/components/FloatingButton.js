@@ -1,41 +1,68 @@
-import React, {useEffect, useState} from "react"
+import React, {useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
+import dateFormat from "dateformat"
+import {optionalModel} from "@entities/optional"
 import {eventModel} from "@entities/event"
-import {locationModel} from "@entities/location"
-
 
 export const FloatingButton = () => {
-    useEffect(() => {
-        M.AutoInit()
-    }, [])
-
     const dispatch = useDispatch()
 
-    const handleClick = (event) => {
+    const handleClick = async (event) => {
         event.preventDefault()
-        dispatch(eventModel.thunks.addEvent(name, description, location, dateStart, dateEnd, [], [], visibility))
+        const timeStart = document.getElementById('timeStart').value
+        const dateStart = document.getElementById('dateStart').value
+        const timeEnd = document.getElementById('timeEnd').value
+        const dateEnd = document.getElementById('dateEnd').value
+
+        const partsStart = timeStart.match(/(\d+):(\d+) (\w+)/)
+        const hoursStart = /am/i.test(partsStart[3]) ?
+            function (am) {
+                return am < 12 ? am : 0
+            }(parseInt(partsStart[1], 10)) :
+            function (pm) {
+                return pm < 12 ? pm + 12 : 12
+            }(parseInt(partsStart[1], 10))
+        const minutesStart = parseInt(partsStart[2], 10)
+
+        const partsEnd = timeEnd.match(/(\d+):(\d+) (\w+)/)
+        const hoursEnd = /am/i.test(partsEnd[3]) ?
+            function (am) {
+                return am < 12 ? am : 0
+            }(parseInt(partsEnd[1], 10)) :
+            function (pm) {
+                return pm < 12 ? pm + 12 : 12
+            }(parseInt(partsEnd[1], 10))
+        const minutesEnd = parseInt(partsEnd[2], 10)
+
+        const start = new Date(dateStart)
+        start.setHours(hoursStart)
+        start.setMinutes(minutesStart)
+
+        const end = new Date(dateEnd)
+        end.setHours(hoursEnd)
+        end.setMinutes(minutesEnd)
+
+        const formattedDateStart = dateFormat(start, 'yyyy-mm-dd\'T\'hh:MM:ss')
+        const formattedDateEnd = dateFormat(end, 'yyyy-mm-dd\'T\'hh:MM:ss')
+
+        const selectedThingTypes = document.querySelectorAll("#thingControl-select option:checked")
+        const thingControl = Array.from(selectedThingTypes).map(element => element.value)
+
+        const selectedPersonageTypes = document.querySelectorAll("#personageControl-select option:checked")
+        const personageTypeId = Array.from(selectedPersonageTypes).map(element => element.value)
+
+        console.log(personageTypeId)
+        await dispatch(eventModel.thunks.addEvent(name, description, location, formattedDateStart, formattedDateEnd, thingControl, personageTypeId, visibility))
     }
 
+    const locations = useSelector(optionalModel.selectors.locations)
+    const personageTypes = useSelector(optionalModel.selectors.personageTypes)
     const thingTypes = ["магическое оружие", "оружие", "обмундирование", "праздничный наряд", "пижама"]
-    const personageTypes = [""]
 
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
-    const [dateStart, setDateStart] = useState('')
-    const [timeStart, setTimeStart] = useState('')
-    const [dateEnd, setDateEnd] = useState('')
-    const [timeEnd, setTimeEnd] = useState('')
     const [location, setLocation] = useState('')
-    const [thingControl, setThingControl] = useState()
     const [visibility, setVisibility] = useState(false)
-
-    const locations = useSelector(locationModel.selectors.locations)
-
-    useEffect(() => {
-        const selected = document.querySelectorAll("#weapon-select option:checked")
-        const values = Array.from(selected).map(element => element.value)
-    }, [])
-
 
     return <div className="fixed-action-btn">
         <a href="#addForm" className="btn-floating btn-large red modal-trigger">
@@ -54,39 +81,35 @@ export const FloatingButton = () => {
                                 <label htmlFor="name">Название</label>
                             </div>
                             <div className="input-field col s12">
-                    <textarea id="description" className="materialize-textarea"
-                              onChange={(event) => setDescription(event.target.value)}/>
+                                <textarea id="description" className="materialize-textarea"
+                                          onChange={(event) => setDescription(event.target.value)}/>
                                 <label htmlFor="description">Описание</label>
                             </div>
 
                             <div className="input-field col s6">
-                                <input type="text" className="datepicker"
-                                       onChange={(event) => setDateStart(event.target.value)}/>
-                                <label htmlFor="date">Дата начала</label>
+                                <input type="text" className="datepicker" id="dateStart"/>
+                                <label htmlFor="dateStart">Дата начала</label>
                             </div>
 
                             <div className="input-field col s6">
-                                <input type="text" className="timepicker"
-                                       onChange={(event) => setTimeStart(event.target.value)}/>
-                                <label htmlFor="date">Время</label>
+                                <input type="text" className="timepicker" id="timeStart"/>
+                                <label htmlFor="timeStart">Время</label>
                             </div>
 
                             <div className="input-field col s6">
-                                <input type="text" className="datepicker"
-                                       onChange={(event) => setDateEnd(event.target.value)}/>
-                                <label htmlFor="date">Дата окончания</label>
+                                <input type="text" className="datepicker" id="dateEnd"/>
+                                <label htmlFor="dateEnd">Дата окончания</label>
                             </div>
 
                             <div className="input-field col s6">
-                                <input type="text" className="timepicker"
-                                       onChange={(event) => setTimeEnd(event.target.value)}/>
-                                <label htmlFor="date">Время</label>
+                                <input type="text" className="timepicker" id="timeEnd"/>
+                                <label htmlFor="timeEnd">Время</label>
                             </div>
 
                             <div className="input-field col s12">
-                                <select style={{bottom: 'initial'}}
-                                        onChange={(event) => setLocation(event.target.value)}>
-                                    <option value="" disabled>Не выбрано</option>
+                                <select
+                                    onChange={(event) => setLocation(event.target.value)}>
+                                    <option selected disabled value="">Не выбрано</option>
                                     {
                                         locations.map((location, index) => {
                                             return <option key={index}
@@ -98,7 +121,7 @@ export const FloatingButton = () => {
                             </div>
 
                             <div className="input-field col s12">
-                                <select id="weapon-select" multiple style={{bottom: 'initial'}}>
+                                <select id="thingControl-select" multiple>
                                     <option value="">Не выбрано</option>
                                     {thingTypes.map((type, index) => {
                                         return <option key={index} value={type}>{type}</option>
@@ -108,11 +131,11 @@ export const FloatingButton = () => {
                             </div>
 
                             <div className="input-field col s12">
-                                <select multiple style={{bottom: 'initial'}}>
-                                    <option value="" selected>Не выбрано</option>
-                                    <option value="1">Option 1</option>
-                                    <option value="2">Option 2</option>
-                                    <option value="3">Option 3</option>
+                                <select id="personageControl-select" multiple>
+                                    <option value="">Не выбрано</option>
+                                    {personageTypes.map((type, index) => {
+                                        return <option value={type.id} key={index}>{type.name}</option>
+                                    })}
                                 </select>
                                 <label>Ограничения на тип приглашеннных</label>
                             </div>
