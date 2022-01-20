@@ -14,7 +14,7 @@ class CustomRestMvcConfiguration {
         return new RepositoryRestConfigurer() {
             @Override
             public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
-                config.exposeIdsFor(ThingControl.class, BlockList.class,
+                config.exposeIdsFor(ThingControl.class, BlockList.class, PersonageType.class,
                         Personage.class, Event.class, EventPersonageType.class);
             }
         };
