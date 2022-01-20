@@ -1,9 +1,6 @@
 package itmo;
 
-import itmo.entity.BlockList;
-import itmo.entity.Event;
-import itmo.entity.Personage;
-import itmo.entity.ThingControl;
+import itmo.entity.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
@@ -17,7 +14,8 @@ class CustomRestMvcConfiguration {
         return new RepositoryRestConfigurer() {
             @Override
             public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
-                config.exposeIdsFor(ThingControl.class, BlockList.class, Personage.class, Event.class);
+                config.exposeIdsFor(ThingControl.class, BlockList.class,
+                        Personage.class, Event.class, EventPersonageType.class);
             }
         };
     }
