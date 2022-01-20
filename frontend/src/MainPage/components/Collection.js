@@ -1,17 +1,10 @@
 import React, {useEffect} from "react"
-import {useDispatch, useSelector} from "react-redux"
+import {useSelector} from "react-redux"
 import {invitationModel} from "@entities/invitation"
 import {blockModel} from "@entities/block"
 import {Item} from "./Item"
 
 export const Collection = () => {
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        dispatch(invitationModel.thunks.getInvitations())
-        dispatch(blockModel.thunks.getBlocking())
-    }, [])
-
     const invitations = useSelector(invitationModel.selectors.invitations)
     const blocked = useSelector(blockModel.selectors.blocking)
     const spam = useSelector(invitationModel.selectors.getSpam(blocked))

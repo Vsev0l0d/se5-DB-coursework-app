@@ -12,7 +12,7 @@ export const Item = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        dispatch(eventModel.thunks.deleteEvent(props.event["_links"].self.href))
+        dispatch(eventModel.thunks.deleteEvent(props.event["_links"]))
     }
 
     return <>

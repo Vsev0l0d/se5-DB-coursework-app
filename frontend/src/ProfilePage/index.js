@@ -1,6 +1,5 @@
 import React, {useEffect} from "react"
 import {useDispatch, useSelector} from "react-redux"
-import {invitationModel} from "@entities/invitation"
 import {personageModel} from "@entities/profile"
 import {blockModel} from "@entities/block"
 import {awardModel} from "@entities/award"
@@ -16,7 +15,6 @@ export const ProfilePage = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(invitationModel.thunks.getInvitations())
         dispatch(personageModel.thunks.getPersonage())
         dispatch(blockModel.thunks.getBlocking())
         dispatch(awardModel.thunks.getAwards())

@@ -9,16 +9,12 @@ export const Collection = () => {
     const loading = useSelector(eventModel.selectors.loading)
 
     useEffect(() => {
-        console.log("sddsasdas")
         M.FloatingActionButton.init(document.querySelectorAll('.fixed-action-btn'))
         M.Collapsible.init(document.querySelectorAll('.collapsible'))
         M.Modal.init(document.querySelectorAll('.modal'))
-        M.Datepicker.init(document.querySelectorAll('.datepicker'), {
-            onSelect: (date) => console.log(date)
-        })
+        M.Datepicker.init(document.querySelectorAll('.datepicker'))
         M.Timepicker.init(document.querySelectorAll('.timepicker'))
         M.FormSelect.init(document.querySelectorAll('select'))
-        // M.AutoInit()
     }, [events])
 
     if (loading) {

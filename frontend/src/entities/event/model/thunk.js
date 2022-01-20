@@ -28,8 +28,10 @@ export const getEvents = () => {
 export const deleteEvent = (link) => {
     return dispatch => {
         dispatch(getEventsStarted())
-        axios.delete(link)
-            .then(dispatch(deleteEventSuccess(link))
+        link.thingControls.map(thing => axios.delete(thing)
+        )
+        axios.delete(link.self.href)
+            .then(dispatch(deleteEventSuccess(link.self.href))
             )
             .catch(err => dispatch(getEventsFailure(err)))
     }
@@ -76,7 +78,23 @@ export const addEvent = (name, description, location, dateStart, dateEnd, thingC
                 await axios.get(`/api/events/${eventId}?projection=eventProjection`)
                     .then(res => dispatch(addEventSuccess(res.data)))
                     .catch(err => dispatch(getEventsFailure(err)))
+
+                if (visibility) {
+                    createInvitations(eventId)
+                }
             })
             .catch(err => dispatch(getEventsFailure(err)))
     }
+}
+
+export const createInvitations = async (eventId) => {
+    const personages = []
+    await axios.get('/api/personages')
+        .then(res => personages.push(...res.data["_embedded"].personages))
+    console.log(personages)
+    personages.map(personage => axios.post('/api/invitations', {
+        event: `/api/events/${eventId}`,
+        personageId: personage.id
+    }))
+
 }

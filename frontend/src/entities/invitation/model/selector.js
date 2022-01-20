@@ -18,9 +18,9 @@ export const getSpam = blocked => state => {
     })
 
     const spam = allInvitations.filter(entry =>
-        (hardSpamPersons.includes(entry["_embedded"].event.owner.id) ||
-            (softSpamPersons.includes(entry["_embedded"].event.owner.id) && entry["_embedded"].event.visibility)) &&
-        entry["_embedded"].event.dateStart >= Date.now())
+        (hardSpamPersons.includes(Number.parseInt(entry["_embedded"].event.owner.id)) ||
+            (softSpamPersons.includes(Number.parseInt(entry["_embedded"].event.owner.id)) && entry["_embedded"].event.visibility)) &&
+        (new Date(entry["_embedded"].event.dateStart)).getTime() >= (new Date()).getTime())
 
     spam.sort((entry1, entry2) => {
         return new Date(entry1["_embedded"].event.dateStart) - new Date(entry2["_embedded"].event.dateStart)
@@ -43,9 +43,9 @@ export const getInvitations = blocked => state => {
     })
 
     const clearInvitations = allInvitations.filter(entry =>
-        (!hardSpamPersons.includes(entry["_embedded"].event.owner.id) ||
-            !(softSpamPersons.includes(entry["_embedded"].event.owner.id) && entry["_embedded"].event.visibility)) &&
-        entry["_embedded"].event.dateStart >= Date.now())
+        (!hardSpamPersons.includes(Number.parseInt(entry["_embedded"].event.owner.id)) ||
+            !(softSpamPersons.includes(Number.parseInt(entry["_embedded"].event.owner.id)) && entry["_embedded"].event.visibility)) &&
+        (new Date(entry["_embedded"].event.dateStart)).getTime() >= (new Date()).getTime())
 
     clearInvitations.sort((entry1, entry2) => {
         return new Date(entry1["_embedded"].event.dateStart) - new Date(entry2["_embedded"].event.dateStart)
