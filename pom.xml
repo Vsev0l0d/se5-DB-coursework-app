@@ -10,9 +10,10 @@
     </parent>
     <groupId>itmo</groupId>
     <artifactId>se5-DB-coursework-app</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1</version>
     <name>se5-DB-coursework-app</name>
     <description>coursework project for Spring Boot</description>
+    <packaging>jar</packaging>
     <properties>
         <java.version>8</java.version>
     </properties>
