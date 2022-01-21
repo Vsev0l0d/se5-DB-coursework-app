@@ -25,13 +25,14 @@ export const getEvents = () => {
 }
 
 //ToDo: удаление наград
-export const deleteEvent = (link) => {
-    return dispatch => {
+export const deleteEvent = (link, thingControls) => {
+    return async dispatch => {
         dispatch(getEventsStarted())
-        link.thingControls.map(thing => axios.delete(thing)
-        )
-        axios.delete(link.self.href)
-            .then(dispatch(deleteEventSuccess(link.self.href))
+        console.log(thingControls)
+        await thingControls.map(thing => axios.delete(`api/thingControls/${thing.id.eventId}_${thing.id.type}`))
+
+        axios.delete(link)
+            .then(dispatch(deleteEventSuccess(link))
             )
             .catch(err => dispatch(getEventsFailure(err)))
     }

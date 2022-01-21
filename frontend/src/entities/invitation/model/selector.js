@@ -32,6 +32,8 @@ export const getSpam = blocked => state => {
 export const getInvitations = blocked => state => {
     const allInvitations = invitations(state)
 
+    console.log(allInvitations)
+
     const hardSpamPersons = []
     const softSpamPersons = []
     blocked.forEach(entry => {
@@ -45,11 +47,13 @@ export const getInvitations = blocked => state => {
     const clearInvitations = allInvitations.filter(entry =>
         (!hardSpamPersons.includes(Number.parseInt(entry["_embedded"].event.owner.id)) ||
             !(softSpamPersons.includes(Number.parseInt(entry["_embedded"].event.owner.id)) && entry["_embedded"].event.visibility)) &&
-        (new Date(entry["_embedded"].event.dateStart)).getTime() >= (new Date()).getTime())
+        ((new Date(entry["_embedded"].event.dateStart)).getTime() >= (new Date()).getTime()))
 
     clearInvitations.sort((entry1, entry2) => {
         return new Date(entry1["_embedded"].event.dateStart) - new Date(entry2["_embedded"].event.dateStart)
     })
+
+    console.log(clearInvitations)
 
     return clearInvitations
 }

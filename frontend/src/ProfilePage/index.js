@@ -8,8 +8,9 @@ import {AboutInfo} from "./components/AboutInfo"
 import {WeaponCollection} from "./components/weapon/WeaponCollection"
 import {ClothingCollection} from "./components/clothing/ClothingCollection"
 import {BlackList} from "./components/BlackList"
-import {AwardCollection} from "./components/AwardCollection";
-import {Preloader} from "@components/Preloader";
+import {AwardCollection} from "./components/AwardCollection"
+import {Preloader} from "@components/Preloader"
+import {Statistics} from "./components/Statistics"
 
 export const ProfilePage = () => {
     const dispatch = useDispatch()
@@ -35,6 +36,7 @@ export const ProfilePage = () => {
         <Navbar/>
         <div className="container">
             <AboutInfo/>
+            <Statistics/>
             <WeaponCollection/>
             <ClothingCollection/>
             <AwardCollection/>
